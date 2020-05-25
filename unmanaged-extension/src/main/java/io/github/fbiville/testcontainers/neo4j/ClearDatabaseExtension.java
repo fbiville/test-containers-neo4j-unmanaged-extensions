@@ -26,6 +26,7 @@ import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.schema.ConstraintDefinition;
 import org.neo4j.graphdb.schema.IndexDefinition;
 
+@Path("/")
 public class ClearDatabaseExtension {
 
     private final GraphDatabaseService graphDb;
