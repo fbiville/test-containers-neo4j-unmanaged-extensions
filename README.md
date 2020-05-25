@@ -1,10 +1,41 @@
 # Deploying an unmanaged extension to `Neo4jContainer`
 
+## Fixes
+
+Thanks https://github.com/michael-simons!
+
+### Missing `@Path` at class level
+
+See https://github.com/fbiville/test-containers-neo4j-unmanaged-extensions/commit/6ef212a02c9e53be87999a8c0aa6a1072b29d780.
+
+It fixes the problem for all latest Neo4j 3.x but not for 3.0.0.
+
+Run:
+```shell
+$ for v in 3.0.12 3.1.9 3.2.14 3.3.9 3.4.17 3.5.18; do 
+	mvn clean package -Dneo4j.version=$v; 
+done
+```
+
+### Envvar workaround
+
+See https://github.com/fbiville/test-containers-neo4j-unmanaged-extensions/commit/4db6e2542d806c03f040a0b911a8fd4384413081.
+
+Add `.withEnv("NEO4J_dbms_unmanagedExtensionClasses", "...")` to export the unmanaged extension configuration for Neo4j 3.0.0.
+
+Now the extension should work for all Neo4j 3.x versions:
+```shell
+$ for v in 3.0.12 3.1.9 3.2.14 3.3.9 3.4.17 3.5.18; do 
+	mvn clean package -Dneo4j.version=$v; 
+done
+```
+
 ## Reproduction
 
 To reproduce the problem, just run:
 
 ```shell
+$ git reset --hard 416174be2467dba76b49ea6beb6eb2da7249b75a
 $ mvn test
 ```
 
