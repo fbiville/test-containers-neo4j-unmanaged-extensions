@@ -28,7 +28,9 @@ public class ClearDatabaseExtensionTest {
 			.withAdminPassword(ADMIN_PASSWORD)
 			.withPlugins(MountableFile.forHostPath(extensionPath()))
 			.withNeo4jConfig("dbms.unmanaged_extension_classes", String
-					.format("%s=/ext", ClearDatabaseExtension.class.getPackage().getName()));
+					.format("%s=/ext", ClearDatabaseExtension.class.getPackage().getName()))
+			.withEnv("NEO4J_dbms_unmanagedExtensionClasses", String
+					.format("%s=/ext", ClearDatabaseExtension.class.getPackage().getName()));;
 
 	private static final OkHttpClient httpClient = new OkHttpClient.Builder()
 			.authenticator((route, response) -> response.request()
